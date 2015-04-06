@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div style="text-align:center"
+<a href={{company.website}}><h1>{{ company.name }}</h1></a>
+
+<p>{{ company.phone }}</p>
+<p>{{ company.email }}</p>
+<br>
+<h2>Events</h2>
+<p>{% for value in company.events %}{{ value.name }}{% endfor %}</p>
+</div>
+</body>
+</html>

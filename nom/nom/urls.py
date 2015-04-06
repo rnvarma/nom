@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^maya/', views.mayasPage)
+    url(r'^maya/', views.mayasPage),
+    url(r'^company/(?P<id>\w{0,50})/$', views.company),
 
 )
