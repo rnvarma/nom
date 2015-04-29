@@ -9,10 +9,17 @@
 {% block body %}
   <div class="container">
     <div class="row">
-      <div class="col m8 offset-m2 s10 offset-s1 event-feed">
+      <div class="col m8 offset-m2 s12 event-feed">
         {% for event in events %}
           <div class="card theme-red">
-            <div class="card-content white-text">
+            <div class="card-content blue-grey lighten-5">
+              {% if event.num_attendees == 1 %}
+                <span class="event-attendees"> <i class="mdi-social-people">{{ event.num_attendees }} person going</i></span>
+              {% elif event.num_attendees == 0 %}
+                <span class="event-attendees"> <i class="mdi-social-people">Be the first to join!</i></span>
+              {% else %}
+                <span class="event-attendees"> <i class="mdi-social-people">{{ event.num_attendees }} people going</i></span>
+              {% endif %}
               <span class="card-title">{{ event.name }}</span><br>
               <span class="event-loc">{{ event.location }}</span>
               <p class="event-description">{{ event.description }}</p>

@@ -1,14 +1,53 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <div style="text-align:center"
-      <a href={{company.website}}><h1>{{ company.name }}</h1></a>
+{% extends 'base.html' %}
+{% load staticfiles %}
 
-      <p>{{ company.phone }}</p>
-      <p>{{ company.email }}</p>
-      <br>
-      <h2>Events</h2>
-      <p>{% for value in company.events %}{{ value.name }}{% endfor %}</p>
+{% block css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/homepage.css' %}"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'css/company.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+{% block body %}
+  <div class="row company-top-row">
+    <div class="row">
+      <div class="col m8 offset-m2 s12 white-text center-align">
+        <div class="company-name">
+          {{ company.name }}
+        </div>
+        <div class="company-website">
+          <a href="{{ company.website }}">{{company.website}}</a>
+        </div>
+        <div class="company-contact">
+          <i class="mdi-communication-phone"></i> {{ company.phone }}
+          <i class="mdi-communication-email" style="margin-left:10px;"></i> {{ company.email }}
+        </div>
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col m8 offset-m2 s12 event-feed">
+        {% for event in events %}
+          <div class="card theme-red">
+            <div class="card-content blue-grey lighten-5">
+              {% if event.num_attendees == 1 %}
+                <span class="event-attendees"> <i class="mdi-social-people">{{ event.num_attendees }} person going</i></span>
+              {% elif event.num_attendees == 0 %}
+                <span class="event-attendees"> <i class="mdi-social-people">Be the first to join!</i></span>
+              {% else %}
+                <span class="event-attendees"> <i class="mdi-social-people">{{ event.num_attendees }} people going</i></span>
+              {% endif %}
+              <span class="card-title">{{ event.name }}</span><br>
+              <span class="event-loc">{{ event.location }}</span>
+              <p class="event-description">{{ event.description }}</p>
+            </div>
+            <div class="card-action">
+              <a href="/joinevent/{{ event.id }}">RSVP</a>
+              <a href='/company/{{ event.org_id}}'>Hosted by {{ event.org_name}}</a>
+              <span class="event-time">When: {{ event.date }} @ {{ event.start_time }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

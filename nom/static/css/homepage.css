@@ -7,7 +7,8 @@
 .event-time {
   float: right;
   text-transform: uppercase;
-  color: #ffab40;
+  color: white;
+  font-weight: 800;
 }
 
 .event-description {
@@ -19,6 +20,38 @@
   font-weight: 800;
 }
 
+.event-attendees {
+  float: right;
+  margin-top: 10px;
+}
+
 .card .card-action {
   border-top: 1px solid #eeeeee !important;
+}
+
+.card-title {
+  color: black !important;
+}
+
+.main-area {
+  margin-top: 20px;
+}
+
+.main-text {
+  font-size: 50px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.main-btn {
+  width: 49%;
+}
+
+.main-btn:hover {
+  background-color: #bb0000;
+}
+
+.btn-area {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

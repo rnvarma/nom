@@ -23,3 +23,6 @@ class FoodEvent(models.Model):
 	location = models.CharField(max_length=50)
 	description = models.CharField(max_length=100)
 	attendees = models.ManyToManyField(User, related_name="attended_events")
+
+	def __unicode__(self):
+		return str(self.date) + " @ " + str(self.startTime)

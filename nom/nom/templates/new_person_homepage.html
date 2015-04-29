@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/homepage.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col m8 offset-m2 s12">
+      <div class="main-area">
+        <div class="main-text">
+          You want free food.
+        </div>
+        <div class="main-text">
+          We know where it is.
+        </div>
+        <div class="row btn-area">
+          <div class="col m6 offset-m3 s12">
+            <a class="main-btn waves-effect waves-light btn-large theme-red" href="/login">LOGIN</a>
+            <a class="main-btn waves-effect waves-light btn-large theme-red" href="/signup">SIGNUP</a>
+          </div>
+        </div>
+        <div class="main-text">
+          It's that simple.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

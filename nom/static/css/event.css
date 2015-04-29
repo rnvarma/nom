@@ -1,0 +1,37 @@
+
+.event-name {
+  font-size: 40px;
+  font-weight: 800;
+  margin-top: 20px;
+}
+
+.event-host {
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.event-desc {
+  font-weight: 100;
+  font-size: 20px;
+
+}
+
+.data-row {
+  background-color: black;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.data-text {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.rsvp-btn {
+  background-color: #990000;
+}
+
+.rsvp-btn:hover {
+  background-color: #bb0000;
+}

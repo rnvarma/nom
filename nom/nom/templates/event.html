@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/event.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block body %}
+  <div class="row">
+    <div class="col m8 s12 offset-m2">
+      <div class="event-name">
+        {{ event.name }}
+      </div>
+      <div class="event-host">
+        Hosted by {{ event.org_name }}
+      </div>
+      <div class="event-desc">
+        {{ event.description }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row data-row">
+    <div class="row white-text">
+      <div class="col m8 s12 offset-m2">
+        <div class="row" style="margin-bottom:0;">
+          <div class="col m2 s6">
+            <i class="data-text mdi-action-perm-contact-cal"></i>{{ event.date }}
+          </div>
+          <div class="col m2 s6">
+            <i class="data-text mdi-device-access-time"></i> {{ event.start_time }} - {{ event.end_time }}
+          </div>
+          <div class="col m2 s6">
+            <i class="data-text mdi-maps-pin-drop"></i>{{ event.location }}
+          </div>
+          <div class="col m2 s6">
+            <i class="data-text mdi-communication-email"></i> {{ event.org_email }}
+          </div>
+          <div class="col m2 s6">
+            <i class="data-text mdi-communication-phone"></i>{{ event.org_phone }} 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col m8 s12 offset-m2">
+      {% if attending %}
+        <a disabled style="width:100%" class="disabled waves-effect waves-light btn-large">You are already attending</a>
+      {% else %}
+        <a href = "/joinevent/{{event.id}}" style="width:100%" class="rsvp-btn waves-effect waves-light btn-large">RSVP</a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

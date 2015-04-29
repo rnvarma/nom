@@ -27,7 +27,7 @@ def parse_time(time_string):
   hour, minuteplus = time_string.split(":")
   minute, ampm = minuteplus.split(" ")
   hour, minute = int(hour), int(minute)
-  hour += ((ampm == "PM") * 12)
+  hour += ((ampm == "PM" and hour != 12) * 12)
   return datetime.time(hour, minute)
 
 def parse_date(date_string):
@@ -42,6 +42,8 @@ def get_event_data(event):
   data["num_attendees"] = event.attendees.count()
   data["org_name"] = event.company.name
   data["org_id"] = event.company.id
+  data["org_phone"] = event.company.phone
+  data["org_email"] = event.company.email
   data["start_time"] = event.startTime
   data["end_time"] = event.endTime
   data["date"] = event.date
@@ -55,7 +57,7 @@ class Context(object):
   @staticmethod
   def get_base_context(request):
     context = {"user": request.user}
-    if (request.user.is_authenticated):
+    if (request.user.is_authenticated()):
       email = request.user.__dict__["_wrapped"].email
       ud = UserData.objects.get(email = email)
       context["ud"] = ud.__dict__
@@ -104,10 +106,10 @@ class SignupView(View):
 
 class HomepageView(View):
   def get(self, request):
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated():
       return render(request, "new_person_homepage.html", Context.get_base_context(request))
-    events = FoodEvent.objects.all().order_by("date")[::-1][:10]
-    events.sort(cmp_events)
+    events = list(FoodEvent.objects.all().order_by("date")[:10])
+    events = sorted(events, cmp_events)[::-1]
     context = Context.get_base_context(request)
     context["events"] = map(lambda x: get_event_data(x), events)
     return render(request,'homepage.html', context)
@@ -116,18 +118,18 @@ class CompanyView(View):
   @method_decorator(login_required)
   def get(self, request, id):
     c = Company.objects.get(id=int(id))
+    context = Context.get_base_context(request)
     company = {}
     company['name'] = c.name
     company['phone'] = c.phone
     company['email'] = c.email
     company['website'] = c.website
-    events = []
-    e = FoodEvent.objects.filter(company_id=int(id))
-    for event in e:
-    	events.append(event)
-    company['events'] = events
-    context = Context.get_base_context(request)
     context["company"] = company
+
+    events = []
+    e = list(FoodEvent.objects.filter(company_id=int(id)))
+    e = sorted(e, cmp_events)[::-1]
+    context['events'] = map(get_event_data, e)
     return render(request,'company.html',context)
 
 
@@ -180,6 +182,35 @@ class OrganizationCreationView(View):
     org.save()
     ud.orgs.add(org)
     return HttpResponseRedirect("/")
+
+class EventJoin(View):
+  @method_decorator(login_required)
+  def get(self, request, id):
+    id = int(id)
+    if (not FoodEvent.objects.filter(id = id).count()):
+      return HttpResponseRedirect("/")
+    user_email = request.user.__dict__["_wrapped"].email
+    ud = UserData.objects.get(email = user_email)
+    event = FoodEvent.objects.get(id = id)
+    event.attendees.add(ud)
+    return HttpResponseRedirect("/event/%d" % id)
+
+class EventPageView(View):
+  @method_decorator(login_required)
+  def get(self, request, id):
+    id = int(id)
+    if (not FoodEvent.objects.filter(id = id).count()):
+      return HttpResponseRedirect("/")
+    event = FoodEvent.objects.get(id = id)
+    context = Context.get_base_context(request)
+    context["event"] = get_event_data(event)
+    context["attendees"] = map(lambda x: x.name, event.attendees.all())
+    user_email = request.user.__dict__["_wrapped"].email
+    ud = UserData.objects.get(email = user_email)
+    context["attending"] = event in ud.attended_events.all()
+    return render(request, 'event.html', context)
+
+
 
 
 

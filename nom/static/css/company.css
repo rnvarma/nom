@@ -1,0 +1,20 @@
+
+.company-top-row {
+  background-color: black;
+}
+
+.company-name {
+  font-size: 60px;
+  font-weight: 300;
+}
+
+.company-website {
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.company-contact {
+  font-weight: 100;
+}
