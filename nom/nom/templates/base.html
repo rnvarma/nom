@@ -1,1 +1,42 @@
-Rohan
+{% load staticfiles %}
+
+<html>
+  <head>
+    <title>{% block title %}NOM.LYFE{% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"  media="screen,projection"/>
+    {% block css %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  </head>
+
+  <body>
+
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">NOM.LYFE</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          {% if user.is_authenticated %}
+            {% if ud.has_org %}
+              <li><a href="/createevent">Post an Event</a></li>
+            {% endif %}
+            <li><a href="/createorganization">Register an Organization</a></li>
+            <li><a href="/profile/{{ user }}">{{ user }}</a></li>
+            <li><a href="/logout">Logout</a></li>
+          {% else %}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Signup</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/picker.time.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+  </body>
+</html>

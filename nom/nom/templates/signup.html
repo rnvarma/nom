@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/signup.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block body %}
+  <div class = "container">
+    <div class="row">
+      <div class="col m8 s10 offset-s1 offset-m2">
+        <div class="card sign-up-card">
+          <div class="card-content">
+            <div class="card-title black-text center-align">Create an Account</div>
+            <form action="/signup" method="POST">
+              {% csrf_token %}
+              <div class="input-field col s12">
+                <input type="text" name="username" class="validate input-input">
+                <label for="username">Username</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input type="email" name = "email" class="validate input-input">
+                <label for="email">Email</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input id="password" name = "password" type="password" class="validate input-input">
+                <label for="password">Password</label>
+              </div>
+
+              <div class="row" style="margin-top:15px;">
+                <div class="col m2 offset-m5 s4 offset-s4">
+                  <button class="btn waves-effect waves-light" style="background-color:#990000" type="submit" name="action">Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

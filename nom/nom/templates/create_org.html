@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/create_org.css' %}"  media="screen,projection"/>
+
+{% endblock %}
+
+
+{% block body %}
+  <div class = "container">
+    <div class="row">
+      <div class="col m8 s10 offset-s1 offset-m2">
+        <div class="card create-org-card">
+          <div class="card-content">
+            <div class="card-title black-text center-align">Register Your Organization</div>
+            <form action="/createorganization" method="POST">
+              {% csrf_token %}
+              <div class="input-field col s12">
+                <input type="text" name="name" class="validate input-input">
+                <label for="username">Organization Name</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input name = "phone" type="tel" class="validate input-input">
+                <label for="password">Phone Number</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input name = "email" type="email" class="validate input-input">
+                <label for="password">Organization Email</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input name = "website" type="url" class="validate input-input">
+                <label for="password">Website</label>
+              </div>
+
+              <div class="row" style="margin-top:15px;">
+                <div class="col m2 offset-m5 s4 offset-s4">
+                  <button class="btn waves-effect waves-light" style="background-color:#990000" type="submit" name="action">Register
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

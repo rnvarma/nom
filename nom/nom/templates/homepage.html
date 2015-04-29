@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+  <link type="text/css" rel="stylesheet" href="{% static 'css/homepage.css' %}"  media="screen,projection"/>
+{% endblock %}
+
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col m8 offset-m2 s10 offset-s1 event-feed">
+        {% for event in events %}
+          <div class="card theme-red">
+            <div class="card-content white-text">
+              <span class="card-title">{{ event.name }}</span><br>
+              <span class="event-loc">{{ event.location }}</span>
+              <p class="event-description">{{ event.description }}</p>
+            </div>
+            <div class="card-action">
+              <a href="/joinevent/{{ event.id }}">RSVP</a>
+              <a href='/company/{{ event.org_id}}'>Hosted by {{ event.org_name}}</a>
+              <span class="event-time">When: {{ event.date }} @ {{ event.start_time }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

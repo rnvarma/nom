@@ -35,6 +35,9 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates').replace('\\','/'),
 )
 
+LOGIN_URL = '/login'
+
+
 # Application definition
 
 INSTALLED_APPS = (
